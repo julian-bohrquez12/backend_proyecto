@@ -1,25 +1,19 @@
 import express from "express";
 import cors from "cors";
-import reportesRoutes from "./routes/reportes.routes.js";
-
 import reporteventasroutes from "./routes/reporteVentas.routes.js";
-import usuariosRoutes from "./routes/usuarios.routes.js";
-
+import perfilRoutes from "./routes/perfil.routes.js";
+import ajustesRoutes from "./routes/ajustes.routes.js";
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Rutas
-
-app.use("/api", reportesRoutes);
-
-app.use("/usuarios", usuariosRoutes);
+// Rutas válidas
+app.use("/perfil", perfilRoutes);
 app.use("/reporteventas", reporteventasroutes);
+app.use("/ajustes", ajustesRoutes);
 
-// Ruta básica
 app.get("/", (req, res) => {
   res.send("✅ Bienvenido a la API de Emprendly");
 });
