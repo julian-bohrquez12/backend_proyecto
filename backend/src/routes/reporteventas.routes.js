@@ -1,7 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import pool from "../config/db.js";
 
-const router = express.Router();
+const router = Router();
 
 /* 🟩 1. OBTENER TODOS LOS REPORTES DE VENTAS */
 router.get("/", async (req, res) => {
@@ -30,7 +30,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 /* 🟩 2. OBTENER UN REPORTE POR ID */
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -58,7 +57,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
 /* 🟩 3. CREAR UN REPORTE */
 router.post("/", async (req, res) => {
   const { Id_Usuarios, Id_Productos, Id_Venta, Fecha_Reporte } = req.body;
@@ -68,6 +66,7 @@ router.post("/", async (req, res) => {
       `INSERT INTO Reporte_ventas 
       (Id_Usuarios, Id_Productos, Id_Venta, Fecha_Reporte) 
       VALUES (?, ?, ?, ?)`,
+
       [Id_Usuarios, Id_Productos, Id_Venta, Fecha_Reporte]
     );
 
@@ -77,7 +76,6 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: "Error creando el reporte" });
   }
 });
-
 
 /* 🟩 4. EDITAR UN REPORTE */
 router.put("/:id", async (req, res) => {
@@ -101,7 +99,6 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Error actualizando el reporte" });
   }
 });
-
 
 /* 🟩 5. ELIMINAR UN REPORTE */
 router.delete("/:id", async (req, res) => {
