@@ -3,7 +3,7 @@ import pool from "../config/db.js";
 
 const router = express.Router();
 
-// 🔹 Obtener un perfil por usuario
+// 🔹 Obtener perfil por usuario
 router.get("/:usuario", async (req, res) => {
   const { usuario } = req.params;
 
@@ -23,6 +23,7 @@ router.get("/:usuario", async (req, res) => {
     res.status(500).json({ message: "Error en el servidor" });
   }
 });
+
 
 // 🔹 Editar perfil (PUT)
 router.put("/:usuario", async (req, res) => {
@@ -45,6 +46,7 @@ router.put("/:usuario", async (req, res) => {
     res.status(500).json({ message: "Error al actualizar perfil" });
   }
 });
+
 
 // 🔹 Eliminar cuenta (DELETE)
 router.delete("/:usuario", async (req, res) => {
