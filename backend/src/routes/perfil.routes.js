@@ -69,4 +69,6 @@ router.delete("/:usuario", async (req, res) => {
   }
 });
 
+
+
 export default router;
