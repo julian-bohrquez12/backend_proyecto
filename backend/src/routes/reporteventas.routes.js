@@ -3,39 +3,27 @@ import pool from "../config/db.js";
 
 const router = express.Router();
 
-// 🔹 Obtener todas las ventas con producto y método de pago
-router.get("/", (req, res) => {
-  const query = `
-    SELECT v.id, v.monto, v.fecha, 
-           p.nombre AS producto, 
-           m.nombre AS metodo_pago
-    FROM ventas v
-    JOIN productos p ON v.producto_id = p.id
-    JOIN metodos_pago m ON v.metodo_pago_id = m.id
-    ORDER BY v.fecha DESC
-  `;
-  pool.query(query, (err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
-});
+// 🔹 Obtener reporte de ventas COMPLETO
+router.get("/", async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT
+        rv.Id_Venta,
+        p.Nombre AS Producto,
+        p.Precio,
+        rv.Cantidad,
+        rv.Fecha AS Fecha_Venta,
+        mp.Nombre AS MetodoPago
+      FROM Registro_Ventas rv
+      JOIN Productos p ON rv.Id_Productos = p.Id_Productos
+      JOIN Metodo_Pago mp ON rv.Id_Metodo = mp.Id_Metodo
+      ORDER BY rv.Fecha DESC
+    `);
 
-// 🔹 Obtener ventas por método de pago
-router.get("/metodo/:id", (req, res) => {
-  const metodoId = req.params.id;
-  const query = `
-    SELECT v.id, v.monto, v.fecha, 
-           p.nombre AS Nombre, 
-           p.precio AS Precio
-    FROM ventas v
-    JOIN productos p ON v.producto_id = p.id
-    WHERE v.metodo_pago_id = ?
-    ORDER BY v.fecha DESC
-  `;
-  pool.query(query, [metodoId], (err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Error obteniendo reporte de ventas" });
+  }
 });
 
 export default router;
