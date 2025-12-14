@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend con Express y MySQL para Emprenddly",
+  "description": "Backend con Express y MySQL para Emprenddly_2",
   "main": "src/index.js",
   "type": "module",
   "scripts": {

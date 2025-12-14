@@ -11,9 +11,17 @@ import productosRoutes from "./routes/productos.routes.js";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+
+// Habilitar CORS para tu frontend
+app.use(cors({
+  origin: "http://localhost:5173", // puerto donde corre tu frontend con Vite
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
+// Ruta de prueba
 app.get("/", (req, res) => {
   res.send("Backend funcionando 🚀");
 });

@@ -1,8 +1,8 @@
 import pool from "../config/db.js";
 
 /* ============================================================
-    GET: obtener todos los reportes
-   ============================================================ */
+   GET: obtener todos los reportes
+============================================================ */
 export const getReportes = async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -31,8 +31,8 @@ export const getReportes = async (req, res) => {
 };
 
 /* ============================================================
-    GET: obtener un reporte por ID
-   ============================================================ */
+   GET: obtener un reporte por ID
+============================================================ */
 export const getReporteById = async (req, res) => {
   const { id } = req.params;
 
